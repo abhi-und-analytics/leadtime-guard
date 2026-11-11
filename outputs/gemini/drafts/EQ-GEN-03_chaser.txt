@@ -1,0 +1,14 @@
+To: j.hughes@kestrel-power.example
+Subject: PO-24022 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24022 (Diesel generators 3.0 MVA, sets 5-8 (Hall 2)). To protect our required-on-site date of 02 Aug 2027, we need one more step from you. We have not received an update for some time. Could you please send your current delivery date and the latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: no supplier update for 21 days (limit 14 for class A).

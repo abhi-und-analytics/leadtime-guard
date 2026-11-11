@@ -1,0 +1,14 @@
+To: s.wagner@rheintal-sa.example
+Subject: PO-24005 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24005 (LV switchboard Hall 1 A-side, 4,000 A). To protect our required-on-site date of 29 Mar 2027, we need one more step from you. Could you please confirm 'Q1 2027' in writing with a dated factory slot letter or your latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: 1 working day late, absorbed by successor float; quarter-level date within 26 weeks of ROS.

@@ -1,0 +1,16 @@
+item_id,kind,to,subject,internal_note,status
+EQ-TX-01,chaser,k.becker@nordwerk-trafo.example,PO-24001 - please confirm a dated slot,Why: float only 15 working days.,pending
+EQ-TX-02,escalation,k.becker@nordwerk-trafo.example,PO-24002 - urgent: delivery risk for HV/MV power transformer T2 110/20 kV 40 MVA,"Why: 14 working days late, more than the successor float of 10 -> milestone M1 moves. Options to discuss: paid expediting, partial shipment, temporary power, resequencing, alternative supplier.",pending
+EQ-MV-01,chaser,m.rossi@lombardia-quadri.example,PO-24003 - please confirm a dated slot,Why: float only 19 working days; tentative date within 26 weeks of ROS.,pending
+EQ-LV-01,chaser,s.wagner@rheintal-sa.example,PO-24005 - please confirm a dated slot,"Why: 1 working day late, absorbed by successor float; quarter-level date within 26 weeks of ROS.",pending
+EQ-BUS-01,chaser,orders@elbe-stromschienen.example,PO-24007 - please confirm a dated slot,Why: ambiguous date '03/02/2027' (dd/mm or mm/dd?) - a person must confirm; tentative date within 26 weeks of ROS.,pending
+EQ-GEN-02,escalation,j.hughes@kestrel-power.example,"PO-24009 - urgent: delivery risk for Diesel generators 3.0 MVA, sets 3-4 (Hall 1)","Why: delay notice without a revised date. Options to discuss: paid expediting, partial shipment, temporary power, resequencing, alternative supplier.",pending
+EQ-UPS-02,chaser,sales.eu@hanshin-pe.example,PO-24011 - please confirm a dated slot,Why: float only 12 working days.,pending
+EQ-BAT-01,chaser,sales.eu@hanshin-pe.example,PO-24012 - please confirm a dated slot,Why: tentative date within 26 weeks of ROS.,pending
+EQ-CH-01,escalation,c.martin@aquilon-cooling.example,"PO-24013 - urgent: delivery risk for Air-cooled chillers 1.5 MW, Hall 1 (3 units)","Why: FAT failed or missed, no new date. Options to discuss: paid expediting, partial shipment, temporary power, resequencing, alternative supplier.",pending
+EQ-DRY-01,chaser,project@nordic-air.example,PO-24015 - please confirm a dated slot,Why: month-level date within 26 weeks of ROS.,pending
+EQ-CDU-01,chaser,c.martin@aquilon-cooling.example,PO-24018 - please confirm a dated slot,Why: month-level date within 26 weeks of ROS.,pending
+EQ-TX-03,chaser,k.becker@nordwerk-trafo.example,PO-24019 - please confirm a dated slot,Why: float only 8 working days.,pending
+EQ-LV-03,internal_note,project-manager@fra-dc1.example,[Internal] Force majeure notice on PO-24021 - legal check needed,,pending
+EQ-GEN-03,chaser,j.hughes@kestrel-power.example,PO-24022 - please confirm a dated slot,Why: no supplier update for 21 days (limit 14 for class A).,pending
+EQ-CRAH-02,chaser,project@nordic-air.example,PO-24025 - please confirm a dated slot,Why: float only 5 working days.,pending

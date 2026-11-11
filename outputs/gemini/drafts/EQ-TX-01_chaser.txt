@@ -1,0 +1,14 @@
+To: k.becker@nordwerk-trafo.example
+Subject: PO-24001 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24001 (HV/MV power transformer T1 110/20 kV 40 MVA). To protect our required-on-site date of 15 Feb 2027, we need one more step from you. Could you please confirm '25 January 2027' in writing with a dated factory slot letter or your latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: float only 15 working days.

@@ -1,0 +1,14 @@
+To: project@nordic-air.example
+Subject: PO-24015 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24015 (Dry coolers, Hall 1 (6 units)). To protect our required-on-site date of 12 Apr 2027, we need one more step from you. Could you please confirm 'early March 2027' in writing with a dated factory slot letter or your latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: month-level date within 26 weeks of ROS.

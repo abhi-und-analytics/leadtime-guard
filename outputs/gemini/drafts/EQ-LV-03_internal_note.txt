@@ -1,0 +1,9 @@
+To: project-manager@fra-dc1.example
+Subject: [Internal] Force majeure notice on PO-24021 - legal check needed
+Status: PENDING APPROVAL (not sent)
+
+Supplier Rheintal Schaltanlagen AG (fictional) sent a force majeure notice for LV switchboard Hall 2, 4,000 A (PO-24021).
+Required on site: 09 Aug 2027. Milestone: M5.
+
+Action for a person: check the notice deadlines and contract clauses with legal before any reply. LeadTime Guard does not write legal positions.
+

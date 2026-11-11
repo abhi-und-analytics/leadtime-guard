@@ -1,0 +1,14 @@
+To: sales.eu@hanshin-pe.example
+Subject: PO-24011 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24011 (UPS 1,250 kVA modules, Hall 1 B-side). To protect our required-on-site date of 19 Apr 2027, we need one more step from you. Could you please confirm '29 January 2027' in writing with a dated factory slot letter or your latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: float only 12 working days.

@@ -1,0 +1,14 @@
+To: c.martin@aquilon-cooling.example
+Subject: PO-24018 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24018 (Liquid-cooling CDUs, Hall 1 (8 units)). To protect our required-on-site date of 10 May 2027, we need one more step from you. Could you please confirm 'late March 2027' in writing with a dated factory slot letter or your latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: month-level date within 26 weeks of ROS.

@@ -1,0 +1,14 @@
+To: orders@elbe-stromschienen.example
+Subject: PO-24007 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24007 (Busway 4,000 A, Hall 1 risers). To protect our required-on-site date of 08 Mar 2027, we need one more step from you. Your date '03/02/2027' can be read in two ways (day/month or month/day). Could you please confirm the delivery date with the month written out (e.g. 3 February 2027)?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: ambiguous date '03/02/2027' (dd/mm or mm/dd?) - a person must confirm; tentative date within 26 weeks of ROS.

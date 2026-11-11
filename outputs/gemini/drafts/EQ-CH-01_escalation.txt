@@ -1,0 +1,20 @@
+To: c.martin@aquilon-cooling.example
+Subject: PO-24013 - urgent: delivery risk for Air-cooled chillers 1.5 MW, Hall 1 (3 units)
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+your latest update on PO-24013 (Air-cooled chillers 1.5 MW, Hall 1 (3 units)) puts our project milestone M2 at risk. We need this equipment on site by 12 Apr 2027.
+
+Please send within 2 working days:
+- a revised, dated delivery schedule
+- your recovery options (e.g. expediting, partial shipment, resequencing)
+
+We would also like to set up a short call this week.
+
+Kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: FAT failed or missed, no new date. Options to discuss: paid expediting, partial shipment, temporary power, resequencing, alternative supplier.
