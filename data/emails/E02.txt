@@ -1,0 +1,16 @@
+From: k.becker@nordwerk-trafo.example
+To: procurement@fra-dc1.example
+Date: Wed, 09 Dec 2026 15:40:00 +0100
+Subject: RE: PO-24002 Transformer T2 - revised delivery
+
+Dear project team,
+
+unfortunately our core steel supplier is late. Delivery of transformer T2 to site is now confirmed for CW 9 / 2027.
+We apologise for the inconvenience and will share the updated test schedule shortly.
+
+Best regards
+Klaus Becker
+Nordwerk Transformatoren GmbH (fictional)
+
+> On Fri, 04 Dec 2026, Klaus Becker wrote:
+> Delivery of T2 to your site in CW 5 is confirmed.

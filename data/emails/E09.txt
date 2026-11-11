@@ -1,0 +1,13 @@
+From: j.hughes@kestrel-power.example
+To: procurement@fra-dc1.example
+Date: Tue, 08 Dec 2026 16:20:00 +0000
+Subject: PO-24009 generator sets 3-4 - delay
+
+Hi team,
+
+due to a shortage of alternators we are currently unable to confirm a collection date for sets 3-4.
+We will revert with a revised schedule as soon as possible.
+
+Regards,
+James Hughes
+Kestrel Power Systems Ltd (fictional)

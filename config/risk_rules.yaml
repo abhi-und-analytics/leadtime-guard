@@ -1,0 +1,36 @@
+# LeadTime Guard - risk rules
+# IMPORTANT: these thresholds are THIS PROJECT'S OWN ASSUMPTIONS, not an industry standard.
+# No published AACE / PMI / CII numeric thresholds were found; real projects set them per contract.
+
+float_unit: working_days        # counted with numpy.busday_count and the holiday list in project.yaml
+
+red:
+  # Any ONE condition makes an item red.
+  - milestone_moves             # shortfall vs ROS is larger than successor_float_wd
+  - delay_notice_without_date   # delay or force-majeure notice and no revised date
+  - fat_failed_or_missed_no_new_date
+
+amber:
+  # Any ONE condition makes an item amber (if not already red).
+  float_below_wd: 20            # float < 20 working days (incl. negative float still absorbed by successor float)
+  vague_date_within_weeks_of_ros: 26   # tentative / conditional / quarter-level date within 26 weeks of ROS
+  stale_update_days:
+    A: 14                       # class A (critical path or > 52 weeks lead time)
+    B: 30
+    C: 30
+  unresolved_conflict: true     # two sources disagree and nobody has confirmed
+  ambiguous_date: true          # e.g. "03/04/2027" from a UK supplier (dd/mm vs mm/dd)
+
+green:
+  min_float_wd: 20              # everything that is not red or amber: float >= 20 working days, no warning signs
+                                # (a tentative date MORE than 26 weeks before ROS stays green, but is re-checked weekly)
+
+actions:
+  red:   "Escalation email to supplier senior contact + internal note to PM with options (paid expediting, partial shipment, temporary power, resequencing, alternative supplier)"
+  amber: "Chaser email asking for a dated factory slot letter or manufacturing schedule"
+  green: "No action - routine weekly check"
+  force_majeure: "Internal note only: a human checks notice deadlines and contract clauses. No automatic reply content."
+
+approval:
+  every_draft_needs_human_approval: true
+  auto_send: false

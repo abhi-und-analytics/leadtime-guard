@@ -1,0 +1,12 @@
+From: project@nordic-air.example
+To: procurement@fra-dc1.example
+Date: Tue, 08 Dec 2026 09:10:00 +0100
+Subject: PO-24025 CRAH units Hall 2 - partial shipment
+
+Hej,
+
+we will make a partial shipment: 12 of 24 CRAH units delivered to site on 12 July 2027, the remaining 12 units on 23 August 2027.
+Both dates are confirmed.
+
+Best regards
+Nordic Air Handling AB (fictional)

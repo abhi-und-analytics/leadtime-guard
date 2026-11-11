@@ -1,0 +1,11 @@
+From: orders@elbe-stromschienen.example
+To: procurement@fra-dc1.example
+Date: Wed, 02 Dec 2026 08:30:00 +0100
+Subject: Order PO-24007 busway
+
+Dear customer,
+
+busway delivery to site is planned for 03/02/2027.
+
+With kind regards
+Order desk, Elbe Stromschienen GmbH (fictional)

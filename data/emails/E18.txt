@@ -1,0 +1,12 @@
+From: k.becker@nordwerk-trafo.example
+To: procurement@fra-dc1.example
+Date: Mon, 07 Dec 2026 10:20:00 +0100
+Subject: PO-24019 Transformer T3
+
+Dear Sir or Madam,
+
+for transformer T3 we currently expect delivery to site in Q2 2027.
+
+Kind regards
+Klaus Becker
+Nordwerk Transformatoren GmbH (fictional)

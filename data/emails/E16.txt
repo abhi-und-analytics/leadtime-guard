@@ -1,0 +1,11 @@
+From: pm@helix-controls.example
+To: procurement@fra-dc1.example
+Date: Wed, 09 Dec 2026 14:10:00 +0100
+Subject: PO-24017 BMS/EPMS hardware
+
+Dear all,
+
+our previous estimate of 4 March 2027 has been superseded: delivery to site is now confirmed for 18 March 2027.
+
+Best regards
+Helix Controls GmbH (fictional)

@@ -1,0 +1,63 @@
+# LeadTime Guard - project configuration
+# Everything here is a PROJECT ASSUMPTION for a fictional data-centre build.
+# See docs/assumptions.md for the reasoning behind each value.
+
+project:
+  code: FRA-DC1
+  name: "FRA-DC1 - fictional 2-hall data centre near Frankfurt am Main"
+  as_of_date: 2026-12-14        # Monday, ISO week 51 of 2026. Forces year-boundary dates (2026 has 53 ISO weeks).
+  timezone: Europe/Berlin
+  currency: EUR
+
+# Public holidays used for working-day maths (state of Hesse, Germany).
+# Easter-based dates were checked with an Easter algorithm in scripts/check_register.py.
+holidays:
+  - 2026-01-01   # New Year's Day
+  - 2026-04-03   # Good Friday
+  - 2026-04-06   # Easter Monday
+  - 2026-05-01   # Labour Day
+  - 2026-05-14   # Ascension Day
+  - 2026-05-25   # Whit Monday
+  - 2026-06-04   # Corpus Christi (Hesse)
+  - 2026-10-03   # German Unity Day
+  - 2026-12-25   # Christmas Day
+  - 2026-12-26   # Boxing Day (Saturday)
+  - 2027-01-01   # New Year's Day
+  - 2027-03-26   # Good Friday
+  - 2027-03-29   # Easter Monday
+  - 2027-05-01   # Labour Day (Saturday)
+  - 2027-05-06   # Ascension Day
+  - 2027-05-17   # Whit Monday
+  - 2027-05-27   # Corpus Christi (Hesse)
+  - 2027-10-03   # German Unity Day (Sunday)
+  - 2027-12-25   # Christmas Day (Saturday)
+  - 2027-12-26   # Boxing Day (Sunday)
+
+# How a supplier date becomes an on-site date.
+# date_basis is what the supplier's date refers to (extracted from the email later).
+date_basis_rules:
+  on_site:       { add_transit: false, add_port_to_site: false, add_receiving: false }  # e.g. DAP/DDP site
+  port_arrival:  { add_transit: false, add_port_to_site: true,  add_receiving: true }   # e.g. CIF Hamburg ETA
+  fca_handover:  { add_transit: true,  add_port_to_site: false, add_receiving: true }   # FCA / FOB / EXW
+  ex_works:      { add_transit: true,  add_port_to_site: false, add_receiving: true }
+  unknown:       { add_transit: true,  add_port_to_site: false, add_receiving: true }   # be conservative + flag
+
+# Transit times in CALENDAR days by origin region (assumptions, mid-points of ranges).
+transit_days:
+  EU-road: 7        # assumption: 5-10 days
+  UK-road: 9        # assumption: road + ferry/tunnel + customs
+  Asia-sea: 56      # assumption: 42-70 days port to port
+port_to_site_days: 4          # assumption: Hamburg/Rotterdam to Frankfurt by road incl. customs release
+receiving_buffer_wd: 2        # assumption: unloading, inspection, booking into site store (working days)
+
+# Calendar-week convention for supplier dates like "CW 6" / "KW 6".
+calendar_week:
+  map_to_weekday: 5            # Friday of that ISO week
+  roll_forward_if_holiday: true
+  missing_year_rule: "if the week lies more than 4 weeks before the email's own week, use the next year"
+quarter:
+  map_to: last_working_day     # "Q2 2027" -> last working day of June 2027, always tentative
+month_part:
+  early: 10                    # "early March" -> 10th (rolled to a working day)
+  mid: 20
+  late: last_working_day

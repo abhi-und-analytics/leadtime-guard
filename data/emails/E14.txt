@@ -1,0 +1,11 @@
+From: project@nordic-air.example
+To: procurement@fra-dc1.example
+Date: Tue, 08 Dec 2026 09:00:00 +0100
+Subject: PO-24014 CRAH units Hall 1
+
+Hej,
+
+CRAH units Hall 1: delivery to site in KW 9, confirmed.
+
+Best regards
+Nordic Air Handling AB (fictional)

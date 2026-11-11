@@ -1,0 +1,11 @@
+From: s.wagner@rheintal-sa.example
+To: procurement@fra-dc1.example
+Date: Mon, 07 Dec 2026 11:05:00 +0100
+Subject: PO-24006 LV switchboard Hall 1 B-side
+
+Hello,
+
+delivery to site: 18/02/2027 (confirmed).
+
+Regards
+Stefan Wagner, Rheintal Schaltanlagen AG (fictional)

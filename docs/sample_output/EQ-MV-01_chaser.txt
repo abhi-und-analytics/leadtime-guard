@@ -1,0 +1,14 @@
+To: m.rossi@lombardia-quadri.example
+Subject: PO-24003 - please confirm a dated slot
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+thank you for your update on PO-24003 (MV switchgear lineup A, 20 kV, 12 panels). To protect our required-on-site date of 22 Mar 2027, we need one more step from you. Could you please confirm 'CW 6' in writing with a dated factory slot letter or your latest manufacturing schedule?
+
+Thank you and kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: float only 19 working days; tentative date within 26 weeks of ROS.

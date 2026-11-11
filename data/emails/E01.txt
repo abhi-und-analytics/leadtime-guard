@@ -1,0 +1,14 @@
+From: k.becker@nordwerk-trafo.example
+To: procurement@fra-dc1.example
+Date: Mon, 07 Dec 2026 10:12:00 +0100
+Subject: PO-24001 Transformer T1 - delivery update
+
+Dear Sir or Madam,
+
+thank you for your patience. Our original plan of 11 January 2027 for transformer T1 has moved.
+Delivery to your Frankfurt site is now confirmed for 25 January 2027.
+The FAT will take place one week before shipment; the invitation follows.
+
+Kind regards
+Klaus Becker
+Nordwerk Transformatoren GmbH (fictional)

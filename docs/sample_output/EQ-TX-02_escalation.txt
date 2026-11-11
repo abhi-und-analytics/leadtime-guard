@@ -1,0 +1,20 @@
+To: k.becker@nordwerk-trafo.example
+Subject: PO-24002 - urgent: delivery risk for HV/MV power transformer T2 110/20 kV 40 MVA
+Status: PENDING APPROVAL (not sent)
+
+Dear supplier team,
+
+your latest update on PO-24002 (HV/MV power transformer T2 110/20 kV 40 MVA) puts our project milestone M1 at risk. We need this equipment on site by 15 Feb 2027.
+
+Please send within 2 working days:
+- a revised, dated delivery schedule
+- your recovery options (e.g. expediting, partial shipment, resequencing)
+
+We would also like to set up a short call this week.
+
+Kind regards
+Project Procurement, FRA-DC1
+
+
+---
+Internal: Why: 14 working days late, more than the successor float of 10 -> milestone M1 moves. Options to discuss: paid expediting, partial shipment, temporary power, resequencing, alternative supplier.

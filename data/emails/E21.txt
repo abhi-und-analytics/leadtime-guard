@@ -1,0 +1,11 @@
+From: sales.eu@hanshin-pe.example
+To: procurement@fra-dc1.example
+Date: Thu, 03 Dec 2026 08:20:00 +0800
+Subject: PO-24023 UPS Hall 2
+
+Dear customer,
+
+the FOB date for the Hall 2 UPS remains tentatively 2 May 2027.
+
+Best regards
+Hanshin Power Electronics Co., Ltd. (fictional)

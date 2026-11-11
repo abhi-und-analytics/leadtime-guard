@@ -1,0 +1,12 @@
+From: m.rossi@lombardia-quadri.example
+To: procurement@fra-dc1.example
+Date: Thu, 10 Dec 2026 09:14:00 +0100
+Subject: PO-24003 - MV switchgear lineup A - production update
+
+Dear project team,
+
+production of lineup A is progressing. Due to a delayed busbar delivery, the equipment will be ready for collection at our Milan works in CW 6.
+FAT remains planned for CW 3. This date is confirmed.
+
+Best regards, Marco Rossi (fictional)
+Lombardia Quadri S.p.A. (fictional)

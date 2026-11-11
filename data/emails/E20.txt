@@ -1,0 +1,12 @@
+From: s.wagner@rheintal-sa.example
+To: procurement@fra-dc1.example
+Date: Mon, 07 Dec 2026 17:00:00 +0100
+Subject: PO-24021 - Notice of force majeure
+
+Dear Sir or Madam,
+
+we hereby notify you of a force majeure event at our plant (flooding of the assembly hall).
+The delivery date for the Hall 2 switchboard cannot be confirmed at this time.
+
+Regards
+Stefan Wagner, Rheintal Schaltanlagen AG (fictional)

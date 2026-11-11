@@ -1,0 +1,10 @@
+# LeadTime Guard - Python 3.12 recommended (3.10-3.13 work). Install: pip install -r requirements.txt
+pydantic>=2          # JSON schema for the AI answer
+pyyaml               # config and rule files
+pandas>=2            # tables
+numpy                # working-day maths (busday_count, Hesse holidays)
+openpyxl             # Excel report
+tabulate             # markdown tables in the evaluation report
+streamlit>=1.50      # dashboard
+openai>=1.40         # only for the gemini / ollama / groq providers (OpenAI-compatible APIs)
+pytest               # tests

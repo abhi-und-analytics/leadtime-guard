@@ -1,0 +1,13 @@
+From: j.hughes@kestrel-power.example
+To: procurement@fra-dc1.example
+Date: Fri, 04 Dec 2026 13:45:00 +0000
+Subject: PO-24008 generator sets 1-2
+
+Hi team,
+
+good news: sets 1-2 will be ready for collection at our Peterborough works in CW 53. This is confirmed.
+FAT passed last week.
+
+Cheers,
+James Hughes
+Kestrel Power Systems Ltd (fictional)

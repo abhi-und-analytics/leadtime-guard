@@ -1,0 +1,12 @@
+From: c.martin@aquilon-cooling.example
+To: procurement@fra-dc1.example
+Date: Fri, 04 Dec 2026 10:40:00 +0100
+Subject: PO-24018 CDUs Hall 1
+
+Dear project team,
+
+the CDUs will be ready at our Lyon works in late March 2027, subject to receipt of your cooling-loop drawings.
+
+Kind regards
+Claire Martin
+Aquilon Cooling S.A.S. (fictional)

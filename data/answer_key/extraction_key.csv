@@ -1,0 +1,24 @@
+email_id,po_number,promised_date_text,date_basis,date_status,delay_notice,force_majeure,fat_failed,partial_shipment,evidence_quote,trap
+E01,PO-24001,25 January 2027,on_site,confirmed,True,False,False,False,Delivery to your Frankfurt site is now confirmed for 25 January 2027.,superseded date: an older date appears first
+E02,PO-24002,CW 9 / 2027,on_site,confirmed,True,False,False,False,Delivery of transformer T2 to site is now confirmed for CW 9 / 2027.,quoted older email contains an old date
+E03,PO-24003,CW 6,fca_handover,confirmed,True,False,False,False,the equipment will be ready for collection at our Milan works in CW 6.,"works date (FCA), not a site date; week without year"
+E04,PO-24004,27.01.2027,fca_handover,confirmed,False,False,False,False,lineup B will be ready for collection at our Milan works on 27.01.2027.,German date format dd.mm.yyyy
+E05,PO-24005,Q1 2027,on_site,conditional,False,False,False,False,"we expect delivery to site in Q1 2027, subject to final drawing approval from your side.",quarter-level date + condition
+E06,PO-24006,18/02/2027,on_site,confirmed,False,False,False,False,delivery to site: 18/02/2027 (confirmed).,slash date that is NOT ambiguous (18 > 12)
+E07,PO-24007,03/02/2027,on_site,tentative,False,False,False,False,busway delivery to site is planned for 03/02/2027.,ambiguous date 03/02/2027 (3 Feb or 2 Mar?)
+E08,PO-24008,CW 53,fca_handover,confirmed,False,False,False,False,sets 1-2 will be ready for collection at our Peterborough works in CW 53.,CW 53 / year boundary; Friday 1 Jan 2027 is a holiday; UK transit
+E09,PO-24009,,fca_handover,unknown,True,False,False,False,due to a shortage of alternators we are currently unable to confirm a collection date for sets 3-4.,delay notice WITHOUT a new date
+E10,PO-24010,8 January 2027,fca_handover,confirmed,False,False,False,False,UPS modules for Hall 1 A-side will be loaded FOB Ningbo on 8 January 2027.,FOB port date + 56 days sea transit
+E11,PO-24011,29 January 2027,fca_handover,confirmed,True,False,False,False,New FOB date: 29 January 2027.,arrival falls on Easter holidays
+E12,PO-24012,19 March 2027,port_arrival,confirmed,False,False,False,False,battery cabinets: ETA Hamburg port 19 March 2027 (CIF Hamburg).,port arrival date (CIF) + port-to-site
+E13,PO-24013,,fca_handover,unknown,False,False,True,False,the factory acceptance test for the Hall 1 chillers was not passed due to compressor vibration.,FAT failed and no new date
+E14,PO-24014,KW 9,on_site,confirmed,False,False,False,False,"CRAH units Hall 1: delivery to site in KW 9, confirmed.",German 'KW' without a year
+E15,PO-24015,early March 2027,on_site,unknown,False,False,False,False,the dry coolers will be delivered to site early March 2027.,vague month-part date
+E16,PO-24017,18 March 2027,on_site,confirmed,False,False,False,False,delivery to site is now confirmed for 18 March 2027.,superseded date appears first
+E17,PO-24018,late March 2027,fca_handover,conditional,False,False,False,False,"the CDUs will be ready at our Lyon works in late March 2027, subject to receipt of your cooling-loop drawings.","month-part + condition, works date"
+E18,PO-24019,Q2 2027,on_site,tentative,False,False,False,False,for transformer T3 we currently expect delivery to site in Q2 2027.,quarter-level date
+E19,PO-24020,10 June 2027,fca_handover,confirmed,False,False,False,False,the FAT for lineup C is planned for 26 May 2027 and the lineup will be ready for collection at our works on 10 June 2027.,FAT date appears before the delivery date
+E20,PO-24021,,on_site,unknown,True,True,False,False,we hereby notify you of a force majeure event at our plant (flooding of the assembly hall).,"force majeure, no date"
+E21,PO-24023,2 May 2027,fca_handover,tentative,False,False,False,False,the FOB date for the Hall 2 UPS remains tentatively 2 May 2027.,tentative date far from ROS (> 26 weeks)
+E22,PO-24024,CW 26 2027,fca_handover,confirmed,False,False,False,False,the Hall 2 chillers will be ready for collection at our Lyon works in CW 26 2027.,week with year
+E23,PO-24025,23 August 2027,on_site,confirmed,False,False,False,True,"we will make a partial shipment: 12 of 24 CRAH units delivered to site on 12 July 2027, the remaining 12 units on 23 August 2027.",partial shipment: the LAST date completes the item

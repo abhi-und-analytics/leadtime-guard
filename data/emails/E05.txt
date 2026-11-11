@@ -1,0 +1,12 @@
+From: s.wagner@rheintal-sa.example
+To: procurement@fra-dc1.example
+Date: Mon, 07 Dec 2026 11:02:00 +0100
+Subject: PO-24005 LV switchboard Hall 1 A-side
+
+Hello,
+
+we expect delivery to site in Q1 2027, subject to final drawing approval from your side.
+Please send the approved drawings as soon as possible.
+
+Regards
+Stefan Wagner, Rheintal Schaltanlagen AG (fictional)

@@ -1,0 +1,11 @@
+From: sales.eu@hanshin-pe.example
+To: procurement@fra-dc1.example
+Date: Thu, 03 Dec 2026 08:10:00 +0800
+Subject: PO-24012 battery cabinets ETA
+
+Dear customer,
+
+battery cabinets: ETA Hamburg port 19 March 2027 (CIF Hamburg).
+
+Best regards
+Hanshin Power Electronics Co., Ltd. (fictional)

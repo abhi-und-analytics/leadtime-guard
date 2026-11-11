@@ -1,0 +1,26 @@
+item_id,description,email_id,supplier_says,date_basis,on_site_forecast,ros_date,float_wd,rag,reasons
+EQ-CH-01,"Air-cooled chillers 1.5 MW, Hall 1 (3 units)",E13,,fca_handover,,2027-04-12,,RED,"FAT failed or missed, no new date"
+EQ-GEN-02,"Diesel generators 3.0 MVA, sets 3-4 (Hall 1)",E09,,fca_handover,,2027-03-15,,RED,delay notice without a revised date
+EQ-LV-03,"LV switchboard Hall 2, 4,000 A",E20,,on_site,,2027-08-09,,RED,force majeure notice without a revised date
+EQ-TX-02,HV/MV power transformer T2 110/20 kV 40 MVA,E02,CW 9 / 2027,on_site,2027-03-05,2027-02-15,-14,RED,"14 working days late, more than the successor float of 10 -> milestone M1 moves"
+EQ-BUS-01,"Busway 4,000 A, Hall 1 risers",E07,03/02/2027,on_site,2027-02-08,2027-03-08,20,AMBER,ambiguous date '03/02/2027' (dd/mm or mm/dd?) - a person must confirm; tentative date within 26 weeks of ROS
+EQ-CDU-01,"Liquid-cooling CDUs, Hall 1 (8 units)",E17,late March 2027,fca_handover,2027-04-09,2027-05-10,20,AMBER,month-level date within 26 weeks of ROS
+EQ-CRAH-02,"CRAH units, Hall 2 (24 units)",E23,23 August 2027,on_site,2027-08-23,2027-08-30,5,AMBER,float only 5 working days
+EQ-DRY-01,"Dry coolers, Hall 1 (6 units)",E15,early March 2027,on_site,2027-03-10,2027-04-12,21,AMBER,month-level date within 26 weeks of ROS
+EQ-GEN-03,"Diesel generators 3.0 MVA, sets 5-8 (Hall 2)",,,fca_handover,2027-06-28,2027-08-02,25,AMBER,no supplier update for 21 days (limit 14 for class A)
+EQ-LV-01,"LV switchboard Hall 1 A-side, 4,000 A",E05,Q1 2027,on_site,2027-03-31,2027-03-29,-1,AMBER,"1 working day late, absorbed by successor float; quarter-level date within 26 weeks of ROS"
+EQ-MV-01,"MV switchgear lineup A, 20 kV, 12 panels",E03,CW 6,fca_handover,2027-02-23,2027-03-22,19,AMBER,float only 19 working days
+EQ-TX-01,HV/MV power transformer T1 110/20 kV 40 MVA,E01,25 January 2027,on_site,2027-01-25,2027-02-15,15,AMBER,float only 15 working days
+EQ-TX-03,HV/MV power transformer T3 110/20 kV 40 MVA (Hall 2),E18,Q2 2027,on_site,2027-06-30,2027-07-12,8,AMBER,float only 8 working days
+EQ-UPS-02,"UPS 1,250 kVA modules, Hall 1 B-side",E11,29 January 2027,fca_handover,2027-04-01,2027-04-19,12,AMBER,float only 12 working days
+EQ-BAT-01,"Li-ion battery cabinets for UPS, Hall 1",E12,19 March 2027,port_arrival,2027-03-25,2027-04-26,20,GREEN,"float 20 working days, no warning signs"
+EQ-BMS-01,"BMS/EPMS controllers and servers, Hall 1",E16,18 March 2027,on_site,2027-03-18,2027-05-03,30,GREEN,"float 30 working days, no warning signs"
+EQ-CH-02,"Air-cooled chillers 1.5 MW, Hall 2 (3 units)",E22,CW 26 2027,fca_handover,2027-07-13,2027-08-23,29,GREEN,"float 29 working days, no warning signs"
+EQ-CRAH-01,"CRAH units, Hall 1 (24 units)",E14,KW 9,on_site,2027-03-05,2027-04-19,29,GREEN,"float 29 working days, no warning signs"
+EQ-FUEL-01,Fuel storage and polishing system,,,on_site,2027-02-11,2027-03-29,31,GREEN,"float 31 working days, no warning signs"
+EQ-GEN-01,"Diesel generators 3.0 MVA, sets 1-2 (Hall 1)",E08,CW 53,fca_handover,2027-01-15,2027-03-15,41,GREEN,"float 41 working days, no warning signs"
+EQ-LV-02,"LV switchboard Hall 1 B-side, 4,000 A",E06,18/02/2027,on_site,2027-02-18,2027-03-29,26,GREEN,"float 26 working days, no warning signs"
+EQ-MV-02,"MV switchgear lineup B, 20 kV, 12 panels",E04,27.01.2027,fca_handover,2027-02-05,2027-03-22,31,GREEN,"float 31 working days, no warning signs"
+EQ-MV-03,"MV switchgear lineup C, 20 kV, 12 panels (Hall 2)",E19,10 June 2027,fca_handover,2027-06-21,2027-08-02,30,GREEN,"float 30 working days, no warning signs"
+EQ-UPS-01,"UPS 1,250 kVA modules, Hall 1 A-side",E10,8 January 2027,fca_handover,2027-03-09,2027-04-19,27,GREEN,"float 27 working days, no warning signs"
+EQ-UPS-03,"UPS 1,250 kVA modules, Hall 2",E21,2 May 2027,fca_handover,2027-06-30,2027-08-16,33,GREEN,"float 33 working days, no warning signs"

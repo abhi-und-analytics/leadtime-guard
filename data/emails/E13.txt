@@ -1,0 +1,13 @@
+From: c.martin@aquilon-cooling.example
+To: procurement@fra-dc1.example
+Date: Fri, 04 Dec 2026 10:30:00 +0100
+Subject: PO-24013 chillers Hall 1 - FAT result
+
+Dear project team,
+
+the factory acceptance test for the Hall 1 chillers was not passed due to compressor vibration.
+A new FAT date will be proposed after the root-cause analysis.
+
+Kind regards
+Claire Martin
+Aquilon Cooling S.A.S. (fictional)

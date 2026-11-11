@@ -1,0 +1,12 @@
+From: c.martin@aquilon-cooling.example
+To: procurement@fra-dc1.example
+Date: Fri, 04 Dec 2026 10:50:00 +0100
+Subject: PO-24024 chillers Hall 2
+
+Dear project team,
+
+the Hall 2 chillers will be ready for collection at our Lyon works in CW 26 2027. Confirmed.
+
+Kind regards
+Claire Martin
+Aquilon Cooling S.A.S. (fictional)

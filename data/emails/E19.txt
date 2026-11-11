@@ -1,0 +1,11 @@
+From: m.rossi@lombardia-quadri.example
+To: procurement@fra-dc1.example
+Date: Thu, 10 Dec 2026 09:30:00 +0100
+Subject: PO-24020 - MV switchgear lineup C
+
+Dear project team,
+
+the FAT for lineup C is planned for 26 May 2027 and the lineup will be ready for collection at our works on 10 June 2027.
+Production slot confirmed.
+
+Best regards, Marco Rossi (fictional)

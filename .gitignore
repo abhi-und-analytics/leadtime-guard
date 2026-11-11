@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.env
+.pytest_cache/
+# results: only the AI run you publish (outputs/gemini) goes to GitHub, so the online dashboard has data
+outputs/*
+!outputs/gemini/
+outputs/gemini/approval_log.csv
+outputs/gemini/approved/
+evals/results/*.xlsx
+~$*.xlsx

@@ -1,0 +1,6 @@
+milestone_id,name,planned_date,total_float_wd,predecessors
+M1,Permanent power / energisation Hall 1,2027-04-30,10,EQ-TX-01;EQ-TX-02;EQ-MV-01;EQ-MV-02;EQ-LV-01;EQ-LV-02;EQ-BUS-01
+M2,L4 functional performance tests Hall 1,2027-06-11,5,M1;EQ-GEN-01;EQ-GEN-02;EQ-UPS-01;EQ-UPS-02;EQ-BAT-01;EQ-CH-01;EQ-CRAH-01;EQ-DRY-01;EQ-FUEL-01
+M3,L5 integrated systems test (IST) Hall 1,2027-07-23,5,M2;EQ-BMS-01;EQ-CDU-01
+M4,Ready for service Hall 1,2027-08-31,0,M3
+M5,Permanent power / energisation Hall 2,2027-09-30,15,EQ-TX-03;EQ-MV-03;EQ-LV-03;EQ-GEN-03;EQ-UPS-03;EQ-CH-02;EQ-CRAH-02
