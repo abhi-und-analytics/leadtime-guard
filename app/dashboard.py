@@ -41,7 +41,7 @@ show = st.multiselect("Show", ["RED", "AMBER", "GREEN"], default=["RED", "AMBER"
 milestones = st.sidebar.multiselect("Milestone", sorted(reg.milestone.unique()), default=sorted(reg.milestone.unique()))
 view = reg[reg.rag.isin(show) & reg.milestone.isin(milestones)]
 cols = ["item_id", "description", "milestone", "supplier_says", "on_site_forecast", "ros_date", "float_wd", "rag", "reasons"]
-st.dataframe(view[cols].style.apply(lambda r: [f"background-color: {COLOURS.get(r.rag, '')}"] * len(r), axis=1),
+st.dataframe(view[cols].style.apply(lambda r: [f"background-color: {COLOURS.get(r.rag, '')}; color: #111111"] * len(r), axis=1),
              width="stretch", hide_index=True)
 
 st.subheader("Items per milestone")
