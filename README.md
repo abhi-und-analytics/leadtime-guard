@@ -7,6 +7,8 @@ LeadTime Guard reads supplier emails about big electrical and cooling equipment 
 > **AI reads. Rules decide. A person approves.**
 > Built for a fictional 2-hall data centre near Frankfurt (FRA-DC1). All companies, people and data are synthetic.
 
+   🌐 **Live dashboard:** [open the app (no install needed)](https://leadtime-guard-appaogezu5elk34djnbuvh9.streamlit.app/)
+
 🎬 **3-minute demo video (incl. the real Colab run and the fixes):** [`docs/demo/LeadTime_Guard_prototype.mp4`](docs/demo/LeadTime_Guard_prototype.mp4)
 
 ![How it works](docs/img/pipeline.png)
