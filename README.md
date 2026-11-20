@@ -7,9 +7,15 @@ LeadTime Guard reads supplier emails about big electrical and cooling equipment 
 > **AI reads. Rules decide. A person approves.**
 > Built for a fictional 2-hall data centre near Frankfurt (FRA-DC1). All companies, people and data are synthetic.
 
-   🌐 **Live dashboard:** [open the app (no install needed)](https://leadtime-guard-appaogezu5elk34djnbuvh9.streamlit.app/)
+> 🔒 **Data stays in your network:** the AI step can run on a **local or on-premise model** (Ollama, vLLM, LM Studio), so no supplier email leaves your servers. See [Run it on your own server](#run-it-on-your-own-server-gdpr--data-governance).
 
-🎬 **3-minute demo video (incl. the real Colab run and the fixes):** [`docs/demo/LeadTime_Guard_prototype.mp4`](docs/demo/LeadTime_Guard_prototype.mp4)
+## Demo
+
+![LeadTime Guard demo](docs/demo/leadtime_guard_demo.gif)
+
+- 🌐 **Live dashboard:** [open the app (no install needed)](https://leadtime-guard-appaogezu5elk34djnbuvh9.streamlit.app/)
+- 🎬 **Full 3-minute video** (incl. the real AI run and the fixes): [`docs/demo/LeadTime_Guard_prototype (1).mp4`](<docs/demo/LeadTime_Guard_prototype (1).mp4>)
+- 💻 **Try it in 2 minutes without any AI key:** `pip install -r requirements.txt && pip install -e . && python -m leadtime_guard.run` (offline mode, keyword reader)
 
 ![How it works](docs/img/pipeline.png)
 
@@ -92,6 +98,39 @@ The baseline takes the first date it finds, so it falls for the **superseded dat
 
 ---
 
+## Run it on your own server (GDPR / data governance)
+
+Real supplier emails contain prices, delivery dates and contract terms. In Europe, sending them to a public AI API can conflict with GDPR, customer contracts and company data rules. LeadTime Guard is built so the **AI step can run on hardware you control**: the model reads the emails locally and **nothing leaves your network**. The rules, Excel report, drafts and dashboard already run locally.
+
+| Provider | Where the email text goes | Use for |
+|---|---|---|
+| `offline` | nowhere (keyword reader, no AI) | quick demo, baseline |
+| `ollama` | your laptop or your company's own server | **real data, on-premise** |
+| `local` | any OpenAI-compatible server you run (vLLM, LM Studio, llama.cpp) | **real data, on-premise / EU private cloud** |
+| `gemini`, `groq`, `opencode` | external cloud API (free tiers) | synthetic data only |
+
+**On your laptop (Ollama, free):**
+```
+# 1. Install Ollama from ollama.com, then download an open model (about 5 GB)
+ollama pull qwen2.5:7b
+
+# 2. Run LeadTime Guard against it (no API key, no internet needed after the download)
+python -m leadtime_guard.run --provider ollama
+python -m leadtime_guard.evaluate --provider ollama
+```
+
+**On a shared company server:** run Ollama (or vLLM) on the server and point LeadTime Guard to it:
+```
+set OLLAMA_BASE_URL=http://ai-server.internal:11434/v1      # Windows (Linux/Mac: export ...)
+set LTG_MODEL=qwen2.5:7b
+python -m leadtime_guard.run --provider ollama
+```
+Any other OpenAI-compatible server works with `--provider local` and `LTG_BASE_URL` + `LTG_MODEL`. Step-by-step guide, hardware sizing and a data-protection checklist: [`docs/local_deployment.md`](docs/local_deployment.md).
+
+> The published results above were measured with Gemini on synthetic data. Smaller local models can read dates differently, so **run `evaluate` with your local model first** and only use it when it passes the answer key.
+
+---
+
 ## Run it on Windows (about 15 minutes)
 
 **1. Get the code and create a Python 3.12 environment** (very new Python versions may not have ready-made pandas/numpy packages yet)
@@ -104,7 +143,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-**2. Run the tests** → `30 passed`
+**2. Run the tests** → `33 passed`
 ```
 pytest -q
 ```
@@ -122,7 +161,7 @@ setx LTG_PROVIDER "opencode"
 setx LTG_MODEL "opencode/<free-model-from-the-list>"
 ```
 Close and reopen the terminal, then `cd` to the folder and run `.venv\Scripts\activate` again.
-Backups, also free: Gemini free tier (`setx GEMINI_API_KEY "..."`, provider `gemini`) or Ollama on your laptop (provider `ollama`).
+Backups, also free: Gemini free tier (`setx GEMINI_API_KEY "..."`, provider `gemini`) or a local model with Ollama (provider `ollama`, see [Run it on your own server](#run-it-on-your-own-server-gdpr--data-governance)).
 
 **5. Run with AI** (23 emails, a few seconds each)
 ```
@@ -166,14 +205,14 @@ src/leadtime_guard/
   pipeline.py    run.py  evaluate.py  approve.py
 app/             dashboard.py (Streamlit)
 evals/           harness.py (missed-risk rate, confusion matrix), results/
-tests/           30 tests: dates, rules, grounding, metrics, full offline run
+tests/           33 tests: dates, rules, grounding, metrics, local-model settings, full offline run
 n8n/             optional daily workflow
-docs/            problem.md, assumptions.md, demo video, images, sample output
+docs/            problem.md, assumptions.md, local_deployment.md, demo video + GIF, images, sample output
 ```
 
 ## Tools
 
-Python 3.12 · OpenCode CLI (free LLM; Gemini / Ollama / Groq as backups) · Pydantic (JSON schema) · pandas + NumPy (working days with Hesse holidays) · YAML rules · openpyxl (Excel report) · Streamlit (dashboard) · pytest (tests) · n8n (optional scheduling). **Running cost: €0.**
+Python 3.12 · free LLMs (OpenCode, Gemini, Groq) or **local models via Ollama / vLLM** · Pydantic (JSON schema) · pandas + NumPy (working days with Hesse holidays) · YAML rules · openpyxl (Excel report) · Streamlit (dashboard) · pytest (tests) · n8n (optional scheduling). **Running cost: €0.**
 
 ## Design decisions
 
@@ -188,7 +227,7 @@ All assumptions (thresholds, transit days, date conventions) are written down in
 ## Limitations and next steps
 
 - Synthetic emails only (English). Real supplier emails would need a pilot with an answer key built from real cases.
-- Free models may log prompts, so they are used only with synthetic data. For real data: a local model (Ollama) or an EU-hosted model under a data processing agreement.
+- Free cloud models may log prompts, so they are used only with synthetic data. For real data: the built-in local/on-premise mode (Ollama, vLLM) or an EU-hosted model under a data processing agreement.
 - Next: read emails directly from a shared Outlook mailbox (Microsoft Graph), track date changes over time per supplier, add milestone-level impact (which milestone moves by how many days).
 
 ---
