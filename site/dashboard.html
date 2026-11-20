@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadTime Guard – Dashboard</title>
+<meta name="description" content="Risk register for 25 long-lead items on a fictional data-centre build: status, reasons, evidence from the supplier email, and draft follow-ups for a person to approve.">
+<style>
+  :root { --ink:#14181f; --muted:#5b6472; --line:#e3e6eb; --bg:#ffffff; --soft:#f5f7fa; --accent:#1f5c99;
+          --red:#c83232; --amber:#b87800; --green:#228b54;
+          --red-bg:#fbe3e4; --amber-bg:#fff2cc; --green-bg:#dcf1e3; --mark:#ffe58a; color-scheme: light; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Inter, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:var(--ink); background:var(--bg); line-height:1.5; font-size:15px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  a { color: var(--accent); }
+  .top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:22px 0 12px; }
+  .top h1 { font-size:26px; margin:0; letter-spacing:-0.3px; }
+  .top .sub { color:var(--muted); font-size:14px; margin:2px 0 0; }
+  .links { display:flex; flex-wrap:wrap; gap:8px; }
+  .btn { text-decoration:none; padding:8px 14px; border-radius:8px; font-weight:600; font-size:14px; border:1px solid var(--ink); color:var(--ink); background:#fff; cursor:pointer; font-family:inherit; }
+  .btn.primary { background:var(--ink); color:#fff; }
+  .seg { display:inline-flex; border:1px solid var(--line); border-radius:10px; padding:3px; background:var(--soft); }
+  .seg button { border:0; background:transparent; padding:7px 12px; border-radius:7px; font:inherit; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; }
+  .seg button.on { background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .bar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; padding:10px 0 4px; }
+  .label { font-size:13px; color:var(--muted); font-weight:600; }
+  .kpis { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:10px; margin:12px 0 6px; }
+  .kpi { border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .kpi .n { font-size:30px; font-weight:700; line-height:1.1; font-variant-numeric: tabular-nums; }
+  .kpi .t { font-size:13px; color:var(--muted); }
+  .kpi.r .n { color:var(--red); } .kpi.a .n { color:var(--amber); } .kpi.g .n { color:var(--green); }
+  section { padding: 22px 0 6px; }
+  h2 { font-size:20px; margin:0 0 10px; }
+  .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:10px; }
+  .chip { border:1px solid var(--line); background:#fff; border-radius:999px; padding:5px 12px; font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--muted); }
+  .chip.on.RED { background:var(--red-bg); border-color:var(--red); color:var(--red); }
+  .chip.on.AMBER { background:var(--amber-bg); border-color:var(--amber); color:var(--amber); }
+  .chip.on.GREEN { background:var(--green-bg); border-color:var(--green); color:var(--green); }
+  select, input[type=search] { font:inherit; font-size:14px; padding:6px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink); }
+  input[type=search] { min-width:200px; }
+  .tablebox { overflow-x:auto; border:1px solid var(--line); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; min-width:900px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { background:var(--soft); color:var(--muted); font-weight:600; font-size:13px; position:sticky; top:0; white-space:nowrap; }
+  th.sort { cursor:pointer; } th.sort:hover { color:var(--ink); }
+  tbody tr { cursor:pointer; }
+  tbody tr.RED { background:var(--red-bg); } tbody tr.AMBER { background:var(--amber-bg); } tbody tr.GREEN { background:var(--green-bg); }
+  tbody tr:hover td { filter: brightness(0.97); }
+  tbody tr.sel { outline:2px solid var(--ink); outline-offset:-2px; }
+  td.num { text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+  td.nw { white-space:nowrap; }
+  .pill { display:inline-block; padding:1px 9px; border-radius:999px; color:#fff; font-size:12px; font-weight:700; }
+  .pill.RED { background:var(--red); } .pill.AMBER { background:var(--amber); } .pill.GREEN { background:var(--green); }
+  .muted { color:var(--muted); } .small { font-size:13px; }
+  .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  @media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  dl { display:grid; grid-template-columns: 150px 1fr; gap:6px 12px; margin:8px 0 0; font-size:14px; }
+  dt { color:var(--muted); } dd { margin:0; }
+  pre.email { white-space:pre-wrap; font-family: ui-monospace, Consolas, monospace; font-size:13px; background:var(--soft); border-radius:8px; padding:12px; margin:8px 0 0; max-height:380px; overflow:auto; }
+  mark { background:var(--mark); padding:0 2px; border-radius:3px; }
+  .ms { margin-bottom:12px; }
+  .ms .head { display:flex; justify-content:space-between; gap:10px; font-size:14px; margin-bottom:4px; }
+  .stack { display:flex; height:22px; border-radius:6px; overflow:hidden; background:var(--soft); }
+  .stack div { color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; min-width:0; }
+  .diff td { cursor:default; }
+  details.draft { border:1px solid var(--line); border-radius:10px; margin-bottom:8px; }
+  details.draft summary { padding:10px 14px; cursor:pointer; display:flex; flex-wrap:wrap; gap:8px; align-items:center; list-style:none; }
+  details.draft summary::-webkit-details-marker { display:none; }
+  details.draft summary::before { content:"▸"; color:var(--muted); }
+  details.draft[open] summary::before { content:"▾"; }
+  .draft .body { padding:0 14px 14px; }
+  .status { margin-left:auto; font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted); }
+  .status.approved { color:var(--green); border-color:var(--green); } .status.rejected { color:var(--red); border-color:var(--red); }
+  .kind { font-size:12px; font-weight:600; color:var(--muted); background:var(--soft); padding:2px 8px; border-radius:6px; }
+  .note { color:var(--muted); font-size:13px; }
+  footer { padding: 26px 0 40px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); margin-top:26px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <div>
+    <h1>LeadTime Guard · Dashboard</h1>
+    <p class="sub">FRA-DC1 (fictional data centre) · 25 long-lead items · all data is synthetic</p>
+  </div>
+  <div class="links">
+    <a class="btn" href="index.html">← Overview &amp; video</a>
+    <a class="btn" href="https://leadtime-guard-appaogezu5elk34djnbuvh9.streamlit.app/" target="_blank" rel="noopener">Interactive version (Streamlit)</a>
+    <a class="btn" href="https://github.com/abhi-und-analytics/leadtime-guard" target="_blank" rel="noopener">Code</a>
+  </div>
+</div>
+
+<div class="bar">
+  <span class="label">Extractor</span>
+  <div class="seg" id="prov"></div>
+  <span class="note" id="provNote"></span>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <h2>Risk register</h2>
+  <div class="filters">
+    <span class="label">Show</span>
+    <button class="chip on RED" data-rag="RED">Red</button>
+    <button class="chip on AMBER" data-rag="AMBER">Amber</button>
+    <button class="chip on GREEN" data-rag="GREEN">Green</button>
+    <select id="ms" aria-label="Milestone"></select>
+    <input type="search" id="q" placeholder="Search item, supplier, reason…" aria-label="Search">
+    <button class="btn" id="csv" type="button">Download CSV</button>
+  </div>
+  <div class="tablebox">
+    <table>
+      <thead><tr>
+        <th class="sort" data-k="item_id">Item</th><th>Description</th><th class="sort" data-k="milestone">Milestone</th>
+        <th>Supplier says</th><th class="sort" data-k="on_site_forecast">On site</th><th class="sort" data-k="ros_date">Needed</th>
+        <th class="sort" data-k="float_wd" style="text-align:right">Float (wd)</th><th class="sort" data-k="rag">Status</th><th>Why</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <p class="note">Click a row to see the evidence. Float = working days between the forecast on-site date and the date the item is needed; negative means late.</p>
+</section>
+
+<section class="grid2">
+  <div class="card" id="detail"></div>
+  <div class="card">
+    <h2>Items per milestone</h2>
+    <div id="msChart"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Where the AI and the keyword baseline disagree</h2>
+  <p class="note" style="margin-top:-4px">The baseline reads emails with fixed keyword rules. These are the items it rated differently from the AI, compared with the hand-made answer key.</p>
+  <div class="tablebox">
+    <table class="diff"><thead><tr><th>Item</th><th>Description</th><th>Baseline</th><th>AI</th><th>Answer key</th><th>What the AI read</th></tr></thead>
+    <tbody id="diffRows"></tbody></table>
+  </div>
+</section>
+
+<section>
+  <h2>Draft emails – a person decides</h2>
+  <p class="note" style="margin-top:-4px">Approve / Reject is a demo: your choice is kept only in this browser, and nothing is ever sent.</p>
+  <div id="drafts"></div>
+</section>
+
+<footer>
+  Portfolio project by <a href="https://www.linkedin.com/in/abhishek-dubey-1b84631b2/" target="_blank" rel="noopener">Abhishek Dubey</a>. Static snapshot of the pipeline output; to run the AI on new emails, use the Streamlit version or run it locally. All companies, people and emails are fictional.
+</footer>
+</div>
+
+<script src="assets/data.js"></script>
+<script>
+(function () {
+  var D = window.LTG_DATA;
+  var RAG_ORDER = { RED: 0, AMBER: 1, GREEN: 2 };
+  var COL = { RED: "var(--red)", AMBER: "var(--amber)", GREEN: "var(--green)" };
+  var state = { prov: "gemini", rags: { RED: true, AMBER: true, GREEN: true }, ms: "", q: "", sortK: "rag", sortDir: 1, sel: null };
+  var msName = {}; D.milestones.forEach(function (m) { msName[m.milestone_id] = m; });
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function fmtDate(s) {
+    if (!s) return "";
+    var d = new Date(s + "T00:00:00");
+    return isNaN(d) ? s : d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  }
+  function reg() { return D.providers[state.prov].register; }
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+  // extractor toggle
+  var prov = document.getElementById("prov");
+  Object.keys(D.providers).forEach(function (p) {
+    var b = document.createElement("button"); b.type = "button"; b.textContent = D.providers[p].label; b.dataset.p = p;
+    b.onclick = function () { state.prov = p; state.sel = null; renderAll(); };
+    prov.appendChild(b);
+  });
+
+  // milestone filter
+  var msSel = document.getElementById("ms");
+  msSel.innerHTML = '<option value="">All milestones</option>' + D.milestones.map(function (m) {
+    return '<option value="' + esc(m.milestone_id) + '">' + esc(m.milestone_id + " · " + m.name) + "</option>";
+  }).join("");
+  msSel.onchange = function () { state.ms = msSel.value; renderTable(); };
+  document.getElementById("q").oninput = function (e) { state.q = e.target.value.toLowerCase(); renderTable(); };
+  document.querySelectorAll(".chip").forEach(function (c) {
+    c.onclick = function () { var r = c.dataset.rag; state.rags[r] = !state.rags[r]; c.classList.toggle("on", state.rags[r]); renderTable(); };
+  });
+  document.querySelectorAll("th.sort").forEach(function (th) {
+    th.onclick = function () { var k = th.dataset.k; state.sortDir = state.sortK === k ? -state.sortDir : 1; state.sortK = k; renderTable(); };
+  });
+
+  function filtered() {
+    var rows = reg().filter(function (r) {
+      if (!state.rags[r.rag]) return false;
+      if (state.ms && r.milestone !== state.ms) return false;
+      if (state.q) {
+        var hay = [r.item_id, r.description, r.supplier, r.reasons, r.supplier_says, r.po_number].join(" ").toLowerCase();
+        if (hay.indexOf(state.q) < 0) return false;
+      }
+      return true;
+    });
+    var k = state.sortK, dir = state.sortDir;
+    rows.sort(function (a, b) {
+      var x, y;
+      if (k === "rag") { x = RAG_ORDER[a.rag]; y = RAG_ORDER[b.rag]; if (x === y) { x = a.float_wd === "" ? -999 : +a.float_wd; y = b.float_wd === "" ? -999 : +b.float_wd; } }
+      else if (k === "float_wd") { x = a[k] === "" ? -999 : +a[k]; y = b[k] === "" ? -999 : +b[k]; }
+      else { x = a[k] || "~"; y = b[k] || "~"; }
+      return x < y ? -dir : x > y ? dir : 0;
+    });
+    return rows;
+  }
+
+  function renderKpis() {
+    var r = reg(), c = { RED: 0, AMBER: 0, GREEN: 0 };
+    r.forEach(function (x) { c[x.rag]++; });
+    var drafts = D.providers[state.prov].drafts.length;
+    document.getElementById("kpis").innerHTML =
+      '<div class="kpi r"><div class="n">' + c.RED + '</div><div class="t">Red: act now</div></div>' +
+      '<div class="kpi a"><div class="n">' + c.AMBER + '</div><div class="t">Amber: chase supplier</div></div>' +
+      '<div class="kpi g"><div class="n">' + c.GREEN + '</div><div class="t">Green: on track</div></div>' +
+      '<div class="kpi"><div class="n">' + r.length + '</div><div class="t">Items tracked</div></div>' +
+      '<div class="kpi"><div class="n">' + drafts + '</div><div class="t">Drafts waiting for a person</div></div>';
+    document.querySelectorAll("#prov button").forEach(function (b) { b.classList.toggle("on", b.dataset.p === state.prov); });
+    document.getElementById("provNote").textContent = state.prov === "gemini"
+      ? "0 of 14 risks missed on the test set" : "missed 2 of 14 risks on the test set";
+  }
+
+  function renderTable() {
+    var rows = filtered();
+    document.getElementById("rows").innerHTML = rows.length ? rows.map(function (r) {
+      var f = r.float_wd === "" ? "–" : r.float_wd;
+      return '<tr class="' + r.rag + (state.sel === r.item_id ? " sel" : "") + '" data-id="' + esc(r.item_id) + '">' +
+        '<td class="nw"><b>' + esc(r.item_id) + "</b></td><td>" + esc(r.description) + '<div class="small muted">' + esc(r.supplier) + "</div></td>" +
+        '<td class="nw">' + esc(r.milestone) + "</td><td>" + (r.supplier_says ? esc(r.supplier_says) : '<span class="muted">no date</span>') + "</td>" +
+        '<td class="nw">' + (fmtDate(r.on_site_forecast) || '<span class="muted">unknown</span>') + '</td><td class="nw">' + fmtDate(r.ros_date) + "</td>" +
+        '<td class="num">' + f + '</td><td><span class="pill ' + r.rag + '">' + r.rag + "</span></td><td>" + esc(r.reasons) + "</td></tr>";
+    }).join("") : '<tr><td colspan="9" class="muted">No items match these filters.</td></tr>';
+    document.querySelectorAll("#rows tr[data-id]").forEach(function (tr) {
+      tr.onclick = function () { state.sel = tr.dataset.id; renderTable(); renderDetail(); document.getElementById("detail").scrollIntoView({ behavior: "smooth", block: "nearest" }); };
+    });
+  }
+
+  function highlight(email, evidence) {
+    var safe = esc(email);
+    if (!evidence) return safe;
+    var words = esc(evidence).trim().split(/\s+/).map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); });
+    try {
+      var re = new RegExp(words.join("\\s+"), "i");
+      return safe.replace(re, function (m) { return "<mark>" + m + "</mark>"; });
+    } catch (e) { return safe; }
+  }
+
+  function renderDetail() {
+    var box = document.getElementById("detail");
+    var r = reg().filter(function (x) { return x.item_id === state.sel; })[0];
+    if (!r) {
+      var first = reg().filter(function (x) { return x.rag === "RED"; })[0] || reg()[0];
+      state.sel = first.item_id; r = first;
+      document.querySelectorAll("#rows tr").forEach(function (tr) { tr.classList.toggle("sel", tr.dataset.id === r.item_id); });
+    }
+    var m = msName[r.milestone] || {};
+    var email = r.email_id && D.emails[r.email_id];
+    box.innerHTML = '<h2>Why? ' + esc(r.item_id) + ' <span class="pill ' + r.rag + '">' + r.rag + "</span></h2>" +
+      '<div>' + esc(r.description) + "</div>" +
+      "<dl>" +
+      "<dt>Supplier</dt><dd>" + esc(r.supplier) + " · " + esc(r.po_number) + "</dd>" +
+      "<dt>Supplier says</dt><dd>" + (r.supplier_says ? "<code>" + esc(r.supplier_says) + "</code>" : "no date given") + ' <span class="muted">(basis: ' + esc(r.date_basis || "–") + ")</span></dd>" +
+      "<dt>On site (forecast)</dt><dd>" + (fmtDate(r.on_site_forecast) || "unknown") + "</dd>" +
+      "<dt>Needed on site</dt><dd>" + fmtDate(r.ros_date) + "</dd>" +
+      "<dt>Float</dt><dd>" + (r.float_wd === "" ? "–" : esc(r.float_wd) + " working days") + "</dd>" +
+      "<dt>Milestone</dt><dd>" + esc(r.milestone + (m.name ? " · " + m.name : "")) + (m.planned_date ? ' <span class="muted">(' + fmtDate(m.planned_date) + ")</span>" : "") + "</dd>" +
+      "<dt>Reasons</dt><dd>" + esc(r.reasons) + "</dd>" +
+      "<dt>Next action</dt><dd>" + esc((r.action || "none").replace("_", " ")) + "</dd>" +
+      "</dl>" +
+      (email ? '<div class="label" style="margin-top:12px">Supplier email ' + esc(r.email_id) + ' · <mark>highlighted</mark> = evidence the value was read from</div><pre class="email">' + highlight(email, r.evidence) + "</pre>"
+             : '<p class="note">No supplier email for this item yet; the register date is used.</p>');
+  }
+
+  function renderMs() {
+    var r = reg();
+    document.getElementById("msChart").innerHTML = D.milestones.map(function (m) {
+      var c = { RED: 0, AMBER: 0, GREEN: 0 }, n = 0;
+      r.forEach(function (x) { if (x.milestone === m.milestone_id) { c[x.rag]++; n++; } });
+      if (!n) return "";
+      var segs = ["RED", "AMBER", "GREEN"].map(function (k) {
+        return c[k] ? '<div style="width:' + (100 * c[k] / n) + "%;background:" + COL[k] + '" title="' + c[k] + " " + k.toLowerCase() + '">' + c[k] + "</div>" : "";
+      }).join("");
+      return '<div class="ms"><div class="head"><span><b>' + esc(m.milestone_id) + "</b> " + esc(m.name) + '</span><span class="muted nw">' + fmtDate(m.planned_date) + "</span></div>" +
+        '<div class="stack">' + segs + "</div></div>";
+    }).join("") + '<p class="note">Bar width = share of that milestone\'s items. Hover a segment for the count.</p>';
+  }
+
+  function keyCell(k, ai, base) {
+    var key = (D.answer_key || {})[k];
+    if (!key) return '<span class="muted">–</span>';
+    var who = key === ai ? "AI right" : key === base ? "Baseline right; AI more cautious" : "neither";
+    return '<span class="pill ' + key + '">' + key + '</span><div class="small muted">' + who + "</div>";
+  }
+  function renderDiff() {
+    var ai = {}, base = {};
+    D.providers.gemini.register.forEach(function (x) { ai[x.item_id] = x; });
+    D.providers.offline.register.forEach(function (x) { base[x.item_id] = x; });
+    var rows = Object.keys(ai).filter(function (k) { return base[k] && base[k].rag !== ai[k].rag; })
+      .sort(function (a, b) { return RAG_ORDER[ai[a].rag] - RAG_ORDER[ai[b].rag]; });
+    document.getElementById("diffRows").innerHTML = rows.map(function (k) {
+      var a = ai[k], b = base[k];
+      return "<tr><td class=\"nw\"><b>" + esc(k) + "</b></td><td>" + esc(a.description) + '</td><td><span class="pill ' + b.rag + '">' + b.rag + '</span><div class="small muted">' + esc(b.reasons) +
+        '</div></td><td><span class="pill ' + a.rag + '">' + a.rag + '</span><div class="small muted">' + esc(a.reasons) + "</div></td><td>" + keyCell(k, a.rag, b.rag) + "</td><td class=\"small\">“" + esc(a.evidence) + "”</td></tr>";
+    }).join("") || '<tr><td colspan="6" class="muted">No differences.</td></tr>';
+  }
+
+  function renderDrafts() {
+    var list = D.providers[state.prov].drafts;
+    var key = "ltg-decisions-" + state.prov, dec = {};
+    try { dec = JSON.parse(store(key) || "{}") || {}; } catch (e) { dec = {}; }
+    var regMap = {}; reg().forEach(function (x) { regMap[x.item_id] = x; });
+    var box = document.getElementById("drafts");
+    box.innerHTML = list.map(function (x, i) {
+      var id = x.item_id + "_" + x.kind, s = dec[id] || "pending", rr = regMap[x.item_id] || {};
+      return '<details class="draft" data-i="' + i + '"><summary><b>' + esc(x.item_id) + '</b> <span class="kind">' + esc(x.kind.replace("_", " ")) + "</span> " +
+        (rr.rag ? '<span class="pill ' + rr.rag + '">' + rr.rag + "</span>" : "") + ' <span class="small">' + esc(x.subject) + '</span><span class="status ' + s + '">' + s.toUpperCase() + "</span></summary>" +
+        '<div class="body">' + (x.internal_note ? '<p class="small"><b>Internal note:</b> ' + esc(x.internal_note) + "</p>" : "") +
+        '<pre class="email">' + esc(x.text) + "</pre>" +
+        '<div style="display:flex;gap:8px;margin-top:10px"><button class="btn primary" type="button" data-d="approved" data-id="' + esc(id) + '">Approve</button>' +
+        '<button class="btn" type="button" data-d="rejected" data-id="' + esc(id) + '">Reject</button>' +
+        (s !== "pending" ? '<button class="btn" type="button" data-d="pending" data-id="' + esc(id) + '">Reset</button>' : "") + "</div></div></details>";
+    }).join("");
+    box.querySelectorAll("button[data-d]").forEach(function (b) {
+      b.onclick = function () {
+        dec[b.dataset.id] = b.dataset.d; if (b.dataset.d === "pending") delete dec[b.dataset.id];
+        store(key, JSON.stringify(dec));
+        var open = b.closest("details").dataset.i; renderDrafts();
+        var d = box.querySelector('details[data-i="' + open + '"]'); if (d) d.open = true;
+      };
+    });
+  }
+
+  document.getElementById("csv").onclick = function () {
+    var cols = ["item_id", "description", "supplier", "po_number", "milestone", "supplier_says", "date_basis", "on_site_forecast", "ros_date", "float_wd", "rag", "reasons", "action", "evidence"];
+    var lines = [cols.join(",")].concat(filtered().map(function (r) {
+      return cols.map(function (c) { var v = String(r[c] || ""); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(",");
+    }));
+    var blob = new Blob(["﻿" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "leadtime_guard_register_" + state.prov + ".csv";
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  function renderAll() { renderKpis(); renderTable(); renderDetail(); renderMs(); renderDrafts(); }
+  renderDiff(); renderAll();
+})();
+</script>
+</body>
+</html>
