@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadTime Guard – AI delivery-risk agent</title>
+<meta name="description" content="An AI agent that reads supplier emails, turns vague delivery dates into on-site dates and flags late long-lead equipment before it delays a project. AI reads, rules decide, a person approves.">
+<style>
+  :root { --ink:#14181f; --muted:#5b6472; --line:#e3e6eb; --bg:#ffffff; --soft:#f5f7fa; --accent:#1f5c99;
+          --red:#c83232; --amber:#d68c00; --green:#228b54; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Inter, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:var(--ink); background:var(--bg); line-height:1.55; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 56px 0 28px; }
+  .tag { display:inline-block; font-size:13px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:4px 12px; }
+  h1 { font-size: clamp(32px, 6vw, 48px); margin: 14px 0 8px; letter-spacing:-0.5px; }
+  .lead { font-size: 19px; color: var(--muted); max-width: 720px; margin: 0 0 22px; }
+  .motto { font-weight:600; }
+  .btns { display:flex; flex-wrap:wrap; gap:10px; }
+  .btn { text-decoration:none; padding:11px 18px; border-radius:8px; font-weight:600; font-size:15px; border:1px solid var(--ink); color:var(--ink); }
+  .btn.primary { background:var(--ink); color:#fff; }
+  video { width:100%; border-radius:12px; border:1px solid var(--line); background:#000; display:block; }
+  section { padding: 34px 0; border-top:1px solid var(--line); }
+  h2 { font-size: 26px; margin: 0 0 14px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:14px; }
+  .card { background:var(--soft); border-radius:10px; padding:16px 18px; }
+  .card b { display:block; margin-bottom:4px; }
+  img { width:100%; border-radius:10px; border:1px solid var(--line); display:block; }
+  table { width:100%; border-collapse:collapse; font-size:15px; margin-top:8px; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; }
+  .big { font-size:30px; font-weight:700; }
+  .pill { display:inline-block; padding:2px 10px; border-radius:999px; color:#fff; font-size:13px; font-weight:600; }
+  .r { background:var(--red); } .a { background:var(--amber); } .g { background:var(--green); }
+  .note { color:var(--muted); font-size:14px; }
+  footer { padding: 30px 0 50px; color:var(--muted); font-size:14px; border-top:1px solid var(--line); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="tag">Portfolio project · synthetic data · €0 running cost</span>
+  <h1>LeadTime Guard</h1>
+  <p class="lead">An AI agent that catches late long-lead equipment (transformers, switchgear, generators) on data-centre builds <b>before it delays power-on</b>. It reads supplier emails, turns vague dates like <i>“CW 6 at our Milan works”</i> into real on-site dates, rates every item green / amber / red with a reason, and drafts follow-ups that a person approves.</p>
+  <p class="motto">AI reads. Rules decide. A person approves.</p>
+  <div class="btns">
+    <a class="btn primary" href="https://leadtime-guard-appaogezu5elk34djnbuvh9.streamlit.app/" target="_blank" rel="noopener">Open the live dashboard</a>
+    <a class="btn" href="https://github.com/abhi-und-analytics/leadtime-guard" target="_blank" rel="noopener">View the code on GitHub</a>
+  </div>
+</header>
+
+<video controls preload="metadata" poster="assets/poster.jpg">
+  <source src="assets/demo.mp4" type="video/mp4">
+  Your browser cannot play this video. <a href="assets/demo.mp4">Download it here.</a>
+</video>
+<p class="note">3-minute walkthrough: the problem, how it works, the real AI run in Google Colab, the errors and fixes, and the results.</p>
+
+<section>
+  <h2>The problem</h2>
+  <div class="grid">
+    <div class="card"><b>Long lead times</b>Transformers and switchgear can take many months to arrive. One late item can delay a whole hall.</div>
+    <div class="card"><b>Vague emails</b>Suppliers write “CW 6”, “Q2 2027”, “ready at our works”, partial shipments, force majeure.</div>
+    <div class="card"><b>Manual tracking</b>Teams retype dates into Excel. A works date read as a site date makes a late item look safe.</div>
+  </div>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <img src="assets/pipeline.png" alt="Pipeline: supplier email, AI extraction with evidence, evidence check, date rules, risk rules, draft email, human approval">
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><b>1 · AI reads</b>Copies the promised date exactly as written, plus the sentence that proves it (Pydantic JSON schema).</div>
+    <div class="card"><b>2 · Rules decide</b>ISO weeks, quarters, Incoterms, transit days and holidays become an on-site date; thresholds set the colour.</div>
+    <div class="card"><b>3 · A person approves</b>Chaser and escalation emails are drafts only. Nothing is sent automatically.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Results on 23 test emails with planted traps</h2>
+  <table>
+    <tr><th>Extractor</th><th>Missed risks (of 14)</th><th>Right colour</th><th>Dates read correctly</th></tr>
+    <tr><td>Keyword baseline (no AI)</td><td>2</td><td>88 %</td><td>82.6 %</td></tr>
+    <tr><td><b>AI (free Gemini model)</b></td><td class="big">0</td><td><b>96 %</b></td><td><b>100 %</b></td></tr>
+  </table>
+  <p class="note">The baseline fell for a superseded date and a partial shipment; the AI caught both. Every evidence sentence was found in its email. Final register: <span class="pill r">4 red</span> <span class="pill a">11 amber</span> <span class="pill g">10 green</span></p>
+  <img src="assets/results.png" alt="Results chart: AI versus keyword baseline" style="margin-top:12px">
+</section>
+
+<section>
+  <h2>Data protection: runs on your own server</h2>
+  <p>Supplier emails contain prices and contract terms. For real data, the AI step runs on a <b>local or on-premise model</b> (Ollama, vLLM, LM Studio), so no email text leaves the company network. Rules, report, drafts and dashboard already run locally. The public demo uses synthetic data only.</p>
+</section>
+
+<section>
+  <h2>Built with</h2>
+  <p>Python · LLM APIs (Gemini) or local models (Ollama) · Pydantic · pandas · YAML rules · openpyxl · Streamlit · pytest · n8n (optional scheduling)</p>
+</section>
+
+<footer>
+  Portfolio project by <a href="https://www.linkedin.com/in/abhishek-dubey-1b84631b2/" target="_blank" rel="noopener">Abhishek Dubey</a>, M.Sc. Data Analytics &amp; AI, Berlin. All companies, people and emails are fictional.
+</footer>
+
+</div>
+</body>
+</html>
