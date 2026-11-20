@@ -3,8 +3,14 @@
 **An AI agent that catches late long-lead equipment on data-centre builds before it delays power-on.**
 
 LeadTime Guard reads supplier emails about big electrical and cooling equipment (transformers, switchgear, generators, chillers), extracts the promised date **with the sentence that proves it**, turns vague dates like *"CW 6 at our Milan works"* into a real on-site date with fixed rules, rates every item **green / amber / red with a reason**, and drafts chaser or escalation emails that **a person approves**. Nothing is sent automatically.
-
+ 
 > **AI reads. Rules decide. A person approves.**
+>
+> 
+
+https://github.com/user-attachments/assets/08cedeca-4776-43ed-b3a8-66503472b70d
+
+
 > Built for a fictional 2-hall data centre near Frankfurt (FRA-DC1). All companies, people and data are synthetic.
 
 > 🔒 **Data stays in your network:** the AI step can run on a **local or on-premise model** (Ollama, vLLM, LM Studio), so no supplier email leaves your servers. See [Run it on your own server](#run-it-on-your-own-server-gdpr--data-governance).
