@@ -137,6 +137,24 @@ Any other OpenAI-compatible server works with `--provider local` and `LTG_BASE_U
 
 ---
 
+## Automation: daily risk email with n8n
+
+An **n8n** workflow turns the agent's output into a morning briefing: every day at 07:00 it downloads the latest risk register, keeps only red and amber items and emails **one summary** to the project team, with a link to the [dashboard](https://leadtime-guard-site.vercel.app/dashboard.html). It only notifies the team. Supplier emails stay drafts until a person approves them.
+
+```
+Schedule 07:00 → Download risk register (HTTP) → Read CSV → Only red and amber → Build summary email (Code) → Send email (Gmail / SMTP)
+```
+
+![n8n workflow run: 25 items read, 15 red or amber kept, 1 summary email sent](docs/img/n8n_workflow.png)
+
+Real run on n8n Cloud: 25 items read, 15 red or amber kept, 1 summary email sent. The email as it arrived in Gmail:
+
+![Daily risk email received in Gmail](docs/img/n8n_email_received.png)
+
+Full example with all 15 rows: [`docs/img/n8n_email_preview.png`](docs/img/n8n_email_preview.png). Import files and setup (n8n Cloud or free self-hosted): [`n8n/README.md`](n8n/README.md).
+
+---
+
 ## Run it on Windows (about 15 minutes)
 
 **1. Get the code and create a Python 3.12 environment** (very new Python versions may not have ready-made pandas/numpy packages yet)
@@ -190,7 +208,7 @@ python -m leadtime_guard.approve --provider opencode
 streamlit run app/dashboard.py
 ```
 
-Optional: run it every morning with n8n, see [`n8n/README.md`](n8n/README.md).
+Daily risk email with n8n: see [Automation](#automation-daily-risk-email-with-n8n) and [`n8n/README.md`](n8n/README.md).
 
 ---
 
@@ -212,13 +230,13 @@ src/leadtime_guard/
 app/             dashboard.py (Streamlit)
 evals/           harness.py (missed-risk rate, confusion matrix), results/
 tests/           33 tests: dates, rules, grounding, metrics, local-model settings, full offline run
-n8n/             optional daily workflow
+n8n/             daily risk email workflow (n8n Cloud and self-hosted versions)
 docs/            problem.md, assumptions.md, local_deployment.md, demo video + GIF, images, sample output
 ```
 
 ## Tools
 
-Python 3.12 · free LLMs (OpenCode, Gemini, Groq) or **local models via Ollama / vLLM** · Pydantic (JSON schema) · pandas + NumPy (working days with Hesse holidays) · YAML rules · openpyxl (Excel report) · Streamlit (dashboard) · pytest (tests) · n8n (optional scheduling). **Running cost: €0.**
+Python 3.12 · free LLMs (OpenCode, Gemini, Groq) or **local models via Ollama / vLLM** · Pydantic (JSON schema) · pandas + NumPy (working days with Hesse holidays) · YAML rules · openpyxl (Excel report) · Streamlit (dashboard) · pytest (tests) · n8n (daily risk email). **Running cost: €0.**
 
 ## Design decisions
 

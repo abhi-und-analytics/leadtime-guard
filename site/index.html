@@ -89,13 +89,20 @@
 </section>
 
 <section>
+  <h2>Automation: a daily risk email with n8n</h2>
+  <p>Every morning at 07:00 an <b>n8n</b> workflow downloads the latest risk register, keeps only red and amber items and emails one summary to the project team. It only notifies; supplier emails stay drafts until a person approves them.</p>
+  <img src="assets/n8n_workflow.png" alt="n8n workflow: schedule, download risk register, read CSV, keep red and amber, build summary email, send email">
+  <p class="note">Real run: 25 items read, 15 red or amber kept, 1 summary email sent.</p>
+</section>
+
+<section>
   <h2>Data protection: runs on your own server</h2>
   <p>Supplier emails contain prices and contract terms. For real data, the AI step runs on a <b>local or on-premise model</b> (Ollama, vLLM, LM Studio), so no email text leaves the company network. Rules, report, drafts and dashboard already run locally. The public demo uses synthetic data only.</p>
 </section>
 
 <section>
   <h2>Built with</h2>
-  <p>Python · LLM APIs (Gemini) or local models (Ollama) · Pydantic · pandas · YAML rules · openpyxl · Streamlit · pytest · n8n (optional scheduling)</p>
+  <p>Python · LLM APIs (Gemini) or local models (Ollama) · Pydantic · pandas · YAML rules · openpyxl · Streamlit · pytest · n8n (daily risk email)</p>
 </section>
 
 <footer>

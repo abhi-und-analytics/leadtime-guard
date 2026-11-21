@@ -1,0 +1,204 @@
+{
+  "name": "LeadTime Guard - daily risk email",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "9a7b1ae9-c0c6-4f5c-a126-c7fa79c29e91",
+      "name": "Every morning 07:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/abhi-und-analytics/leadtime-guard/main/outputs/gemini/risk_register.csv",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "7999c583-4f82-4249-98ff-077db712ee32",
+      "name": "Download risk register",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "options": {}
+      },
+      "id": "83d074a4-8382-4bbb-9d3e-8d877ecd94f5",
+      "name": "Read CSV",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bda4d718-eb46-4f4f-8f49-9e3bfb569171",
+              "leftValue": "={{ $json.rag }}",
+              "rightValue": "GREEN",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e61b017c-f3cf-4c06-899a-f40258ac5ebb",
+      "name": "Only red and amber",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node: build one summary email from the RED and AMBER rows\nconst esc = s => String(s ?? '').replace(/[&<>\"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[c]));\nconst fmt = d => d ? new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }) : 'unknown';\nconst items = $input.all().map(i => i.json);\nconst order = { RED: 0, AMBER: 1 };\nconst fl = x => (x.float_wd === '' || x.float_wd == null ? -999 : Number(x.float_wd));\nitems.sort((a, b) => (order[a.rag] - order[b.rag]) || (fl(a) - fl(b)));\n\nconst red = items.filter(i => i.rag === 'RED').length;\nconst amber = items.filter(i => i.rag === 'AMBER').length;\nconst colour = { RED: '#c83232', AMBER: '#b87800' };\nconst td = 'padding:7px 10px;border-bottom:1px solid #e3e6eb;vertical-align:top;';\nconst action = { escalation: 'Escalate', chaser: 'Chase supplier', internal_note: 'Internal check', none: '-' };\n\nconst rows = items.map(i => `<tr>\n  <td style=\"${td}white-space:nowrap\"><b>${esc(i.item_id)}</b></td>\n  <td style=\"${td}\">${esc(i.description)}</td>\n  <td style=\"${td}\"><span style=\"background:${colour[i.rag]};color:#fff;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:bold\">${esc(i.rag)}</span></td>\n  <td style=\"${td}white-space:nowrap\">${fmt(i.on_site_forecast)}</td>\n  <td style=\"${td}white-space:nowrap\">${fmt(i.ros_date)}</td>\n  <td style=\"${td}text-align:right\">${(i.float_wd === '' || i.float_wd == null) ? '-' : esc(i.float_wd)}</td>\n  <td style=\"${td}\">${esc(i.reasons)}</td>\n  <td style=\"${td}white-space:nowrap\">${esc(action[i.action] || i.action)}</td>\n</tr>`).join('');\n\nconst th = 'text-align:left;padding:7px 10px;background:#f5f7fa;color:#5b6472;font-size:12px;';\nconst html = `<div style=\"font-family:Arial,sans-serif;font-size:14px;color:#14181f;max-width:900px\">\n<p>Good morning,</p>\n<p>LeadTime Guard checked all long-lead items. <b>${red} red</b> and <b>${amber} amber</b> items need attention today:</p>\n<table style=\"border-collapse:collapse;width:100%;font-size:13px\">\n<tr><th style=\"${th}\">Item</th><th style=\"${th}\">Description</th><th style=\"${th}\">Status</th><th style=\"${th}\">On site</th><th style=\"${th}\">Needed</th><th style=\"${th}\">Float (wd)</th><th style=\"${th}\">Why</th><th style=\"${th}\">Next step</th></tr>\n${rows}\n</table>\n<p>Draft emails to suppliers are waiting for approval in the <a href=\"https://leadtime-guard-site.vercel.app/dashboard.html\">dashboard</a>. Nothing is sent to suppliers automatically.</p>\n<p style=\"color:#5b6472;font-size:12px\">Sent by the LeadTime Guard n8n workflow. Portfolio demo with synthetic data.</p>\n</div>`;\n\nreturn [{ json: { subject: `LeadTime Guard: ${red} red, ${amber} amber items today`, html, red, amber } }];\n"
+      },
+      "id": "74c0ccd8-5739-4fd8-8b81-f3539687e4e5",
+      "name": "Build summary email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "your.email@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "8ce97979-5d42-4b92-9006-96e4ca7cf287",
+      "name": "Send email (Gmail)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1100,
+        0
+      ],
+      "webhookId": "fd4822ad-1471-48c5-8920-0620c2840eaa"
+    },
+    {
+      "parameters": {
+        "content": "## LeadTime Guard: daily risk email\nEvery morning n8n downloads the latest risk register (the output of the Python agent), keeps only RED and AMBER items and emails one summary to the project team.\n\n**Setup:** open *Send email (Gmail)*, connect your Google account and put your own address in *To*.\n\nThis workflow only **notifies** the team. Supplier emails are drafts that a person approves in the dashboard. Nothing is sent to suppliers.",
+        "height": 220,
+        "width": 700,
+        "color": 4
+      },
+      "id": "809a2ae2-0561-40cc-9092-1816578f7d09",
+      "name": "Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        -300
+      ]
+    }
+  ],
+  "connections": {
+    "Every morning 07:00": {
+      "main": [
+        [
+          {
+            "node": "Download risk register",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download risk register": {
+      "main": [
+        [
+          {
+            "node": "Read CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read CSV": {
+      "main": [
+        [
+          {
+            "node": "Only red and amber",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only red and amber": {
+      "main": [
+        [
+          {
+            "node": "Build summary email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build summary email": {
+      "main": [
+        [
+          {
+            "node": "Send email (Gmail)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  },
+  "active": false,
+  "tags": []
+}
