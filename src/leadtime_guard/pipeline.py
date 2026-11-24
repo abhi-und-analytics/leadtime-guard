@@ -16,7 +16,7 @@ from .normalise.dates import parse_date_text, to_on_site
 from .rules.engine import ItemUpdate, assess
 from .schema import SupplierUpdate
 
-PROVIDERS = ["offline", "opencode", "gemini", "ollama", "groq"]
+PROVIDERS = ["offline", "opencode", "gemini", "ollama", "local", "groq"]
 
 
 def load_register() -> pd.DataFrame:

@@ -4,12 +4,17 @@ Pick the provider with the environment variable LTG_PROVIDER (default: opencode)
   opencode - the OpenCode CLI installed in your terminal, with one of its free models (see opencode_cli.py).
              Model: env LTG_MODEL, e.g. a "-free" model from `opencode models` (empty = OpenCode's default model)
   gemini  - Google Gemini API free tier. Key from Google AI Studio -> env GEMINI_API_KEY. Model: gemini-3.8-flash
-  ollama  - local open model on your own laptop (fully offline, no key). Model: env LTG_MODEL, e.g. llama3.1:8b
+  ollama  - open model on your own laptop or company server (no key, no data leaves your network).
+            Model: env LTG_MODEL, e.g. qwen2.5:7b or llama3.1:8b. Server: env OLLAMA_BASE_URL
+            (default http://localhost:11434/v1; e.g. http://ai-server.internal:11434/v1 for a shared server)
+  local   - any other OpenAI-compatible server you run yourself (vLLM, LM Studio, llama.cpp server):
+            env LTG_BASE_URL (required), LTG_MODEL (required), LTG_API_KEY (optional)
   groq    - Groq free plan. Key from console.groq.com -> env GROQ_API_KEY. Model: openai/gpt-oss-120b
 
 Override the model with env LTG_MODEL. All of these cost EUR 0 within their free limits.
 Free-tier note: Gemini free-tier prompts may be used by Google to improve its products, so only ever
-send SYNTHETIC data (this project uses synthetic data only). For confidential data use Ollama (local).
+send SYNTHETIC data (this project uses synthetic data only). For real supplier emails use `ollama` or `local`:
+the model runs on your own hardware and no email text leaves your network (see docs/local_deployment.md).
 """
 
 import json
@@ -23,7 +28,8 @@ PROVIDERS = {
     "opencode": {"base_url": None, "key_env": None, "model": None},   # uses the opencode CLI, no key in Python
     "gemini": {"base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
                "key_env": "GEMINI_API_KEY", "model": "gemini-3.8-flash"},
-    "ollama": {"base_url": "http://localhost:11434/v1", "key_env": None, "model": "llama3.1:8b"},
+    "ollama": {"base_url": "http://localhost:11434/v1", "key_env": None, "model": "qwen2.5:7b"},
+    "local":  {"base_url": None, "key_env": None, "model": None},   # your own OpenAI-compatible server
     "groq":   {"base_url": "https://api.groq.com/openai/v1",
                "key_env": "GROQ_API_KEY", "model": "openai/gpt-oss-120b"},
 }
@@ -39,6 +45,15 @@ def provider_settings():
         sys.exit(f"Unknown LTG_PROVIDER '{name}'. Use one of: {', '.join(PROVIDERS)}")
     p = dict(PROVIDERS[name], name=name)
     p["model"] = os.environ.get("LTG_MODEL", p["model"])
+    if name == "ollama":
+        p["base_url"] = os.environ.get("OLLAMA_BASE_URL", p["base_url"])
+    if name == "local":
+        p["base_url"] = os.environ.get("LTG_BASE_URL")
+        if not p["base_url"] or not p["model"]:
+            sys.exit("Provider 'local' needs LTG_BASE_URL (e.g. http://localhost:8000/v1) and LTG_MODEL.")
+    if name in ("ollama", "local") and "LTG_MIN_INTERVAL" not in os.environ:
+        global MIN_INTERVAL_S
+        MIN_INTERVAL_S = 0.0     # your own server has no rate limit
     return p
 
 
@@ -49,7 +64,7 @@ def get_client():
         from .opencode_cli import find_opencode
         find_opencode()          # stops with a clear message if opencode is not installed
         return None, p
-    key = "ollama"  # Ollama ignores the key, but the SDK needs a non-empty string
+    key = os.environ.get("LTG_API_KEY", "local")  # Ollama ignores the key, but the SDK needs a non-empty string
     if p["key_env"]:
         key = os.environ.get(p["key_env"])
         if not key:
